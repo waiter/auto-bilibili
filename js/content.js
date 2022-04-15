@@ -18,7 +18,7 @@ async function waitForDom(searchStr, times = 20) {
 
 const UIContainer = $('<div id="auto-container" style="background-color: rgba(0,0,0,0.5);position:fixed;left:0;top:0;width:200px;height:100px;z-index:2000;border-bottom-right-radius:20px;color: white;display:flex;flex-direction: column;justify-content: center;align-items: center;"></div>');
 const Label = $('<div id="auto-status">未启动</div>');
-const UIBtn = $('<button id="auto-btn" style="color: aliceblue;width: 100px;height: 40px;background-color: darkseagreen;border-radius: 10px;margin-top: 10px;">点击开启</button>');
+const UIBtn = $('<button id="auto-btn" style="color: aliceblue;width: 100px;height: 40px;background-color: darkseagreen;border-radius: 10px;margin-top: 10px;">点击开始</button>');
 
 let isAutoOn = false;
 let isRunning = false;
@@ -33,7 +33,7 @@ chrome.storage.sync.get("autoOn", ({ autoOn }) => {
     isAutoOn = !isAutoOn;
     if (!isAutoOn) {
       Label.text('未启动');
-      UIBtn.text('点击开启');
+      UIBtn.text('点击开始');
     } else {
       Label.text('运行中');
       UIBtn.text('点击暂停');
