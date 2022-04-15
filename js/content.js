@@ -31,6 +31,7 @@ chrome.storage.sync.get("autoOn", ({ autoOn }) => {
   }
   UIBtn.click(function() {
     isAutoOn = !isAutoOn;
+    chrome.storage.sync.set({ autoOn: isAutoOn ? '1' : '0' });
     if (!isAutoOn) {
       Label.text('未启动');
       UIBtn.text('点击开始');
@@ -39,7 +40,6 @@ chrome.storage.sync.get("autoOn", ({ autoOn }) => {
       UIBtn.text('点击暂停');
       start();
     }
-    chrome.storage.sync.set({ autoOn: isAutoOn ? '1' : '0' });
   });
   UIContainer.append(Label);
   UIContainer.append(UIBtn);
@@ -70,7 +70,7 @@ async function throwCoin() {
   const coins = await getCoins();
   if (coins > 0) {
     const c = $('.coin')[0]
-    if ($(c).attr('class').indexOf('on') > -1) {
+    if (!c || $(c).attr('class').indexOf('on') > -1) {
       // 已经投过了，下一个视频
       await goToRandomVideo();
       return
@@ -131,7 +131,11 @@ async function getCoins(times = 20) {
 // 随机选择一个视频跳转
 async function goToRandomVideo(wait = 1000) {
   await delay(wait);
-  const list = $('a[href^="//www.bilibili.com/video/"]');
+  const isVideo = window.location.href.startsWith('https://www.bilibili.com/video/');
+  let list = isVideo ? $('a[href^="/video/"]') : $('a[href^="//www.bilibili.com/video/"]');
+  if (isVideo && Math.random() < 0.7) {
+    list = [];
+  }
   if (list.length > 0) {
     const index = Math.floor(Math.random() * list.length);
     const item = list[index];
@@ -178,8 +182,13 @@ async function comment() {
       console.log('没发现输入框');
       return;
     }
+    // 降低概率来评论
+    if (Math.random() < 0.8) {
+      return;
+    }
     input.textContent = COMMENT_LIST[Math.floor(Math.random() * COMMENT_LIST.length)];
-    $('.comment-submit')[0].click()
+    $('.comment-submit')[0].click();
+    await delay(1000);
   } catch (e) {
     // 非核心任务，报错就报错了
     console.log(e);
