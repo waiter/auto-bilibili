@@ -4,18 +4,9 @@
   "description": "一天投光所有的币",
   "manifest_version": 3,
   "icons": {
-    "128": "images/icon11.png"
+    "128": "images/icon.png"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage", "activeTab", "scripting"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "128": "images/icon11.png"
-    }
-  },
+  "permissions": ["storage", "scripting"],
   "content_scripts": [
     {
       "matches": ["https://*.bilibili.com/*"],
