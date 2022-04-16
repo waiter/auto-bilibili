@@ -2,6 +2,9 @@
 
 > 一天投完全部硬币！！
 
+- Bilibili演示视频：https://www.bilibili.com/video/BV1ZL4y15776/
+- 详细说明：https://mp.weixin.qq.com/s/mYD76WFJzkqokaJ12KYbpQ
+
 ## 怎么使用？？
 
 这个就是一个非常简单的**Chrome 浏览器插件**，核心怎么导入插件即可
