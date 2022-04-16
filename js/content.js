@@ -184,6 +184,11 @@ async function comment() {
     }
     // 降低概率来评论
     if (Math.random() < 0.8) {
+      // 滚回去
+      document.documentElement.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
       return;
     }
     input.textContent = COMMENT_LIST[Math.floor(Math.random() * COMMENT_LIST.length)];
