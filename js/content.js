@@ -132,7 +132,7 @@ async function getCoins(times = 20) {
 async function goToRandomVideo(wait = 1000) {
   await delay(wait);
   const isVideo = window.location.href.startsWith('https://www.bilibili.com/video/');
-  let list = isVideo ? $('a[href^="/video/"]') : $('a[href^="//www.bilibili.com/video/"]');
+  let list = $('a[href^="/video/"],a[href^="//www.bilibili.com/video/"],a[href^="https://www.bilibili.com/video/"]');
   if (isVideo && Math.random() < 0.7) {
     list = [];
   }
@@ -188,6 +188,11 @@ async function comment() {
     }
     input.textContent = COMMENT_LIST[Math.floor(Math.random() * COMMENT_LIST.length)];
     $('.comment-submit')[0].click();
+    // 滚回去
+    document.documentElement.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
     await delay(1000);
   } catch (e) {
     // 非核心任务，报错就报错了
